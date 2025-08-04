@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheapRidesGH - Affordable Vehicles in Ghana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#f59e0b',
+                        accent: '#ef4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .hero-pattern {
+            background: linear-gradient(rgba(30, 64, 175, 0.85), rgba(30, 64, 175, 0.9)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .vehicle-card {
+            transition: all 0.3s ease;
+        }
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .tab-active {
+            border-bottom: 3px solid #f59e0b;
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        .damage-checkbox:checked + label {
+            background-color: #ef4444;
+            color: white;
+        }
+        .highlight-checkbox:checked + label {
+            background-color: #10b981;
+            color: white;
+        }
+        .dropdown-content {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-car text-white text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-primary">CheapRides<span class="text-secondary">GH</span></h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="tab-active">Home</a>
+                <a href="#vehicles" class="hover:text-secondary transition">Available Vehicles</a>
+                <a href="#request" class="hover:text-secondary transition">Vehicle Request</a>
+                <a href="#about" class="hover:text-secondary transition">About</a>
+                <a href="#contact" class="hover:text-secondary transition">Contact</a>
+            </nav>
+            
+            <div class="flex items-center">
+                <button class="bg-secondary hover:bg-yellow-500 text-white px-4 py-2 rounded-lg font-medium transition flex items-center">
+                    <i class="fas fa-shopping-cart mr-2"></i> Cart (0)
+                </button>
+                <button class="md:hidden ml-4 text-primary">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-pattern text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Affordable Vehicles for Everyone</h1>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Ghana's trusted gateway to quality auctioned cars at unbeatable prices</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-secondary hover:bg-yellow-500 text-white px-8 py-3 rounded-lg font-bold text-lg transition">
+                    Browse Vehicles
+                </button>
+                <button class="bg-transparent border-2 border-white hover:bg-white hover:text-primary px-8 py-3 rounded-lg font-bold text-lg transition">
+                    Request Vehicle
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-4xl font-bold text-primary mb-2">500+</div>
+                    <div class="text-gray-600">Vehicles Sold</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold text-primary mb-2">98%</div>
+                    <div class="text-gray-600">Customer Satisfaction</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold text-primary mb-2">24/7</div>
+                    <div class="text-gray-600">Customer Support</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold text-primary mb-2">GH₵</div>
+                    <div class="text-gray-600">Best Prices</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Available Vehicles Section -->
+    <section id="vehicles" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">Available Vehicles</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Vehicle Card 1 -->
+                <div class="vehicle-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Toyota Camry" class="w-full h-56 object-cover">
+                        <div class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold">
+                            New
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Toyota Camry LE</h3>
+                                <p class="text-gray-600">2020 • Automatic • 45,000 km</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-primary">GH₵125,000</div>
+                                <div class="text-sm text-gray-500">Fixed Price</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <button class="bg-primary hover:bg-blue-800 text-white px-4 py-2 rounded-lg transition">
+                                View Details
+                            </button>
+                            <button class="bg-secondary hover:bg-yellow-500 text-white px-4 py-2 rounded-lg transition">
+                                <i class="fas fa-shopping-cart mr-2"></i> Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vehicle Card 2 -->
+                <div class="vehicle-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1325&q=80" alt="Honda Civic" class="w-full h-56 object-cover">
+                        <div class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-bold">
+                            Popular
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Honda Civic EX</h3>
+                                <p class="text-gray-600">2019 • Automatic • 52,000 km</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-primary">GH₵110,000</div>
+                                <div class="text-sm text-gray-500">Fixed Price</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <button class="bg-primary hover:bg-blue-800 text-white px-4 py-2 rounded-lg transition">
+                                View Details
+                            </button>
+                            <button class="bg-secondary hover:bg-yellow-500 text-white px-4 py-2 rounded-lg transition">
+                                <i class="fas fa-shopping-cart mr-2"></i> Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vehicle Card 3 -->
+                <div class="vehicle-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80" alt="Nissan Altima" class="w-full h-56 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Nissan Altima SL</h3>
+                                <p class="text-gray-600">2018 • Automatic • 65,000 km</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-primary">GH₵95,000</div>
+                                <div class="text-sm text-gray-500">Fixed Price</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <button class="bg-primary hover:bg-blue-800 text-white px-4 py-2 rounded-lg transition">
+                                View Details
+                            </button>
+                            <button class="bg-secondary hover:bg-yellow-500 text-white px-4 py-2 rounded-lg transition">
+                                <i class="fas fa-shopping-cart mr-2"></i> Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg font-bold transition">
+                    View All Vehicles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vehicle Request Section -->
+    <section id="request" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">Request a Vehicle</h2>
+            
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-xl shadow-lg p-8">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Brand</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option>Select Brand</option>
+                                <option>AUDI</option>
+                                <option>BENTLEY</option>
+                                <option>BMW</option>
+                                <option>FORD</option>
+                                <option>GMC</option>
+                                <option>HONDA</option>
+                                <option>HYUNDAI</option>
+                                <option>JAGUAR</option>
+                                <option>JEEP</option>
+                                <option>KIA</option>
+                                <option>LAND ROVER</option>
+                                <option>LEXUS</option>
+                                <option>MAZDA</option>
+                                <option>MERCEDES-BENZ</option>
+                                <option>MITSUBISHI</option>
+                                <option>NISSAN</option>
+                                <option>PORSCHE</option>
+                                <option>TOYOTA</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Model</label>
+                            <select id="modelSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" disabled>
+                                <option>Select Model</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Trim Level</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option>Select Trim</option>
+                                <option>LE</option>
+                                <option>SE</option>
+                                <option>XLE</option>
+                                <option>EX</option>
+                                <option>LX</option>
+                                <option>Sport</option>
+                                <option>Limited</option>
+                                <option>Platinum</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Year</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option>Select Year</option>
+                                <option>2023</option>
+                                <option>2022</option>
+                                <option>2021</option>
+                                <option>2020</option>
+                                <option>2019</option>
+                                <option>2018</option>
+                                <option>2017</option>
+                                <option>2016</option>
+                                <option>2015</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Request Type</label>
+                        <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option>Auction Only</option>
+                            <option>Auction & Shipping</option>
+                            <option>Auction to Clearing</option>
+                            <option>Other Services</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Additional Details</label>
+                        <textarea class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" rows="4" placeholder="Any specific requirements or preferences..."></textarea>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="bg-secondary hover:bg-yellow-500 text-white px-8 py-3 rounded-lg font-bold text-lg transition">
+                            Submit Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-primary">About CheapRidesGH</h2>
+                
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        CheapRidesGH is Ghana's trusted gateway to affordable, reliable, and quality vehicles. We specialize in connecting buyers with a wide range of auctioned cars, offering unbeatable deals and transparent processes tailored to meet the needs of individuals, small businesses, and vehicle enthusiasts.
+                    </p>
+                    
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        Founded with a mission to simplify vehicle acquisition, CheapRidesGH provides end-to-end support—from auction participation and bidding to clearing, shipping, and customization. Our team ensures that every client receives personalized service, flexible payment options, and access to exclusive vehicle listings from trusted sources.
+                    </p>
+                    
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        Whether you're looking for a budget-friendly ride, a customized vehicle, or parts for upgrades, CheapRidesGH is your go-to partner. We pride ourselves on integrity, speed, and customer satisfaction, making car ownership more accessible than ever.
+                    </p>
+                    
+                    <div class="text-center mt-8">
+                        <h3 class="text-xl font-bold text-primary mb-4">Our Values</h3>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <div class="bg-primary text-white px-6 py-3 rounded-lg">
+                                <i class="fas fa-check-circle text-2xl mb-2"></i>
+                                <div class="font-bold">Integrity</div>
+                            </div>
+                            <div class="bg-secondary text-white px-6 py-3 rounded-lg">
+                                <i class="fas fa-bolt text-2xl mb-2"></i>
+                                <div class="font-bold">Speed</div>
+                            </div>
+                            <div class="bg-accent text-white px-6 py-3 rounded-lg">
+                                <i class="fas fa-smile text-2xl mb-2"></i>
+                                <div class="font-bold">Satisfaction</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 text-center">
+                        <h3 class="text-2xl font-bold text-primary mb-6">Why Choose CheapRidesGH?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="text-primary text-3xl mb-3">
+                                    <i class="fas fa-tags"></i>
+                                </div>
+                                <h4 class="font-bold text-lg mb-2">Best Prices</h4>
+                                <p class="text-gray-600">We offer vehicles at auction prices with no hidden fees</p>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="text-primary text-3xl mb-3">
+                                    <i class="fas fa-shipping-fast"></i>
+                                </div>
+                                <h4 class="font-bold text-lg mb-2">End-to-End Service</h4>
+                                <p class="text-gray-600">From auction to delivery, we handle everything for you</p>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="text-primary text-3xl mb-3">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h4 class="font-bold text-lg mb-2">Quality Assurance</h4>
+                                <p class="text-gray-600">All vehicles undergo thorough inspection before delivery</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">Contact Us</h2>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Get in Touch</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-primary text-white p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-gray-800">Phone Numbers</h4>
+                                <p class="text-gray-600">+233 24 578 3010</p>
+                                <p class="text-gray-600">+233 55 755 7235</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary text-white p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-gray-800">Email</h4>
+                                <p class="text-gray-600">@cheapridesgh</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary text-white p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-gray-800">Office</h4>
+                                <p class="text-gray-600">B763/5 Otisahela Street, Bubiashie Accra. Adjacent Cottage Hotel</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h4 class="font-bold text-lg text-gray-800 mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-800 transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-800 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-800 transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-800 transition">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Send us a Message</h3>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <input type="text" placeholder="Subject" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <textarea placeholder="Your Message" rows="5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="bg-secondary hover:bg-yellow-500 text-white px-8 py-3 rounded-lg font-bold w-full transition">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="bg-white w-10 h-10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-car text-primary text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">CheapRides<span class="text-secondary">GH</span></h3>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        Ghana's trusted gateway to affordable, reliable, and quality vehicles.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="#vehicles" class="text-gray-300 hover:text-white transition">Available Vehicles</a></li>
+                        <li><a href="#request" class="text-gray-300 hover:text-white transition">Vehicle Request</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Our Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Vehicle Auctions</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Vehicle Clearing</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Vehicle Shipping</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Customization</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Parts & Accessories</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">
+                        Subscribe to get updates on new vehicles and special offers.
+                    </p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your Email" class="px-4 py-2 rounded-l-lg w-full text-gray-800 focus:outline-none">
+                        <button class="bg-secondary hover:bg-yellow-500 px-4 py-2 rounded-r-lg font-bold">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 CheapRidesGH. All rights reserved. | Designed with <i class="fas fa-heart text-accent"></i> for Ghana</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vehicle Detail Modal -->
+    <div id="vehicleModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-primary">2020 Toyota Camry LE</h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Toyota Camry" class="w-full rounded-lg">
+                    </div>
+                    
+                    <div>
+                        <div class="mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <div>
+                                    <div class="text-3xl font-bold text-primary">GH₵125,000</div>
+                                    <div class="text-gray-600">Fixed Price</div>
+                                </div>
+                                <button class="bg-secondary hover:bg-yellow-500 text-white px-6 py-3 rounded-lg font-bold transition">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Buy Now
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <div class="text-gray-600">Year</div>
+                                    <div class="font-bold">2020</div>
+                                </div>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <div class="text-gray-600">Mileage</div>
+                                    <div class="font-bold">45,000 km</div>
+                                </div>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <div class="text-gray-600">Transmission</div>
+                                    <div class="font-bold">Automatic</div>
+                                </div>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <div class="text-gray-600">Fuel Type</div>
+                                    <div class="font-bold">Petrol</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4">Vehicle Condition</h4>
+                            
+                            <div class="mb-4">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-32 text-gray-700 font-medium">Airbag Status:</div>
+                                    <div class="font-bold text-green-600">Yes</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="text-gray-700 font-medium mb-2">Damage Areas:</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-3 py-1 bg-gray-200 rounded-full">Front</span>
+                                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full">Back</span>
+                                        <span class="px-3 py-1 bg-gray-200 rounded-full">Side</span>
+                                        <span class="px-3 py-1 bg-gray-200 rounded-full">All Over</span>
+                                        <span class="px-3 py-1 bg-gray-200 rounded-full">Roof</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="text-gray-700 font-medium mb-2">Highlights:</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full">Run and Drive</span>
+                                        <span class="px-3 py-1 bg-gray-200 rounded-full">Stationary</span>
+                                        <span class="px-3 py-1 bg-gray-200 rounded-full">Starts</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-4">Description</h4>
+                            <p class="text-gray-600">
+                                Well-maintained 2020 Toyota Camry LE with only 45,000 km on the odometer. 
+                                Comes with all original documentation and has passed our thorough inspection. 
+                                Perfect for daily commuting or business use.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Brand to Model mapping
+        const brandModels = {
+            "AUDI": ["A3", "A4", "A5", "A6", "A8", "Q3", "Q5", "Q7", "R8", "TT"],
+            "BENTLEY": ["Model"],
+            "BMW": ["3 series", "5 series", "7 series", "M3", "M5", "M6", "X1", "X3", "X4", "X5", "X6", "Z3", "Z4"],
+            "FORD": ["Bronco", "Escape", "Escort", "Explorer", "F150", "F250", "Focus", "Ranger", "Territory", "Trader", "Transit"],
+            "GMC": ["Acadia", "Canyon", "Savana", "Sierra", "Terrain", "Yukon"],
+            "HONDA": ["Accord", "Civic", "CR-V", "HR-V", "Odyssey", "Ridgeline"],
+            "HYUNDAI": ["Accent", "Elantra", "i30", "Santa Fe", "Sonata", "Tucson"],
+            "JAGUAR": ["XE-F-J-K", "XJR", "XJ6", "E-Type", "S-Type", "X-Type"],
+            "JEEP": ["Compass", "Patriot", "Renegade", "Wrangler"],
+            "KIA": ["Rio", "Sorento", "Sportage", "K3 Forte", "K5 Optima"],
+            "LAND ROVER": ["Defender", "Discovery", "Freelander", "Range Rover"],
+            "LEXUS": ["ES 300", "GS 300", "GS 430", "IS 200", "IS 250", "IS 300", "LS 400", "LS 430", "SC 430"],
+            "MAZDA": ["MX-5", "MX-6", "Mazda 2", "Mazda 3", "Mazda 5", "Mazda 6", "CX-3", "CX-5", "CX-9"],
+            "MERCEDES-BENZ": ["A Class", "B Class", "C Class", "E Class", "E63S", "GLA", "GLC", "GLS400", "ML350", "ML430", "S Class", "Sprinter"],
+            "MITSUBISHI": ["Eclipse Cross", "Lancer", "Mirage", "Outlander"],
+            "NISSAN": ["Maxima", "Murano", "Navara", "NX", "Pathfinder", "X-Trail"],
+            "PORSCHE": ["Cayenne", "Panamera"],
+            "TOYOTA": ["Camry", "Corolla", "Echo", "Prius", "RAV4", "Sienna", "Supra", "Yaris", "4-Runner", "Tacoma"]
+        };
+
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('vehicleModal');
+            const closeModal = document.getElementById('closeModal');
+            const viewDetailsButtons = document.querySelectorAll('.vehicle-card button:first-child');
+            
+            // Brand and Model selection functionality
+            const brandSelect = document.querySelector('select[placeholder="Select Brand"]');
+            const modelSelect = document.getElementById('modelSelect');
+            
+            brandSelect.addEventListener('change', function() {
+                const selectedBrand = this.value;
+                modelSelect.innerHTML = '<option>Select Model</option>';
+                
+                if (selectedBrand && brandModels[selectedBrand]) {
+                    modelSelect.disabled = false;
+                    brandModels[selectedBrand].forEach(model => {
+                        const option = document.createElement('option');
+                        option.value = model;
+                        option.textContent = model;
+                        modelSelect.appendChild(option);
+                    });
+                } else {
+                    modelSelect.disabled = true;
+                }
+            });
+            
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeModal.addEventListener('click', function() {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Tab navigation
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('tab-active'));
+                    this.classList.add('tab-active');
+                    
+                    // Scroll to section
+                    const targetId = this.getAttribute('href');
+                    if(targetId !== '#') {
+                        const targetSection = document.querySelector(targetId);
+                        if(targetSection) {
+                            targetSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
